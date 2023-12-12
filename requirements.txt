@@ -3,4 +3,3 @@ streamlit==1.22.0
 snowflake
 streamlit_option_menu
 PIL
-numpy

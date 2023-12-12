@@ -6,7 +6,6 @@ from streamlit_option_menu import option_menu
 from PIL import Image
 import pickle
 import numpy as np
-st.set_page_config
 selected = option_menu(
     menu_title = "Main Menu",
     options = ["Home","Model","Contact"],

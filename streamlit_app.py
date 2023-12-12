@@ -15,7 +15,8 @@ selected = option_menu(
     default_index = 0,
   )
 
-df = pd.read_csv("creditcard.csv")
+
+#df = pd.read_csv("creditcard.csv")
 
 filename = "final_model.sav"
 model=pickle.load(open(filename, "rb"))

@@ -73,7 +73,7 @@ if selected == "Model":
     predict = form.form_submit_button("Predict")
     result = model.predict(df2)    
     result2 = model.predict_proba(df2)[:]
-    if result > 0.5:
+    if result < 0.5:
         st.markdown("<h4 style='color: green;'>Genuine Transaction.</h4>",
                unsafe_allow_html=True)
         s1 = "The probability of genuine transaction  % "  + str((result2[0][0].round(4) * 100 ).round(3))

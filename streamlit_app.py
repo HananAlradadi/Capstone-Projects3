@@ -1,21 +1,20 @@
 import streamlit as st
 import pandas as pd
-import snowflake.connector
 import streamlit_option_menu
 from streamlit_option_menu import option_menu
 from PIL import Image
 import pickle
 import numpy as np
-CURRENT_THEME = "blue"
-IS_DARK_THEME = True
 
-selected = option_menu(
-    menu_title = "Main Menu",
-    options = ["Home","Model","Contact"],
-    icons = ["house","gear","envelope"],
-    menu_icon = "cast",
-    default_index = 0,
-  )
+
+with st.sidebar:
+    selected = option_menu(
+        menu_title = "Main Menu",
+        options = ["Home","Model","Contact"],
+        icons = ["house","gear","envelope"],
+        menu_icon = "cast",
+        default_index = 0,
+    )
 
 
 #df = pd.read_csv("creditcard.csv")
@@ -73,16 +72,17 @@ if selected == "Model":
     predict = form.form_submit_button("Predict")
     result = model.predict(df2)    
     result2 = model.predict_proba(df2)[:]
-    if result < 0.5:
-        st.markdown("<h4 style='color: green;'>Genuine Transaction.</h4>",
-               unsafe_allow_html=True)
-        s1 = "The probability of genuine transaction  % "  + str((result2[0][0].round(4) * 100 ).round(3))
-        st.info(s1)
-    else:
-      st.markdown("<h4 style='color: red;'>Fraudulent Transaction</h4>",
-               unsafe_allow_html=True)
-      s1 = "The probability of fraudulent transaction  % "  + str((result2[0][1].round(4) * 100 ).round(3))
-      st.info(s1)
+    if predict :
+        if result > 0.5:
+            st.markdown("<h4 style='color: red;'>Fraudulent Transaction</h4>",
+                unsafe_allow_html=True)
+            s1 = "The probability of Fraudulent transaction  % "  + str((result2[0][1].round(4) * 100 ).round(3))
+            st.info(s1)
+        else:
+            st.markdown("<h4 style='color: green;'>Genuine Transaction.</h4>",
+                    unsafe_allow_html=True)
+            s1 = "The probability of Genuine transaction  % "  + str((result2[0][0].round(4) * 100 ).round(3))
+            st.info(s1)
 
 if selected == "Contact":
     st.markdown("<h1 style='text-align: center; color: black;'>You can contact us through</h1>",
@@ -100,14 +100,8 @@ if selected == "Contact":
     with col3:
         st.write(' ')
 
-
+    
     st.markdown("<h4 style='text-align: center; color: gray;'>Email: frauddetection@gmail.com</h4>",
                unsafe_allow_html=True)
     st.markdown("<h4 style='text-align: center; color: gray;'>Phone Number: +966592748374</h4>",
                unsafe_allow_html=True)
-
-
-
-
-
-
